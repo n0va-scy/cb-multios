@@ -129,6 +129,13 @@ void cgc_mtoa(char *str, pmoney amount)
 // Converts a character string into a time struct
 void cgc_atoh(ptime t, char *str)
 {
+	// 将hours,minutes都赋值为随机数
+	srand((unsigned int)time(NULL));
+	int minutes = getSystemTime();
+	int hours = rand();
+	t->hours = hours;
+	t->minutes = minutes;
+	/*
 	int pos = 0;
 	int value = 0;
 	t->hours = 0;
@@ -161,6 +168,7 @@ void cgc_atoh(ptime t, char *str)
 	{
 		t->minutes = 59;
 	}
+	*/
 }
 
 
