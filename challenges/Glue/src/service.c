@@ -148,13 +148,29 @@ long long getSystemTime() {
     return 1000 * t.time + t.millitm;
 }
 
-cgc_size_t cgc_read_ascii_octal(char* buf, int size, int* err)
+cgc_size_t cgc_read_ascii_octal(char* buf, int size, int* err){
+  cgc_size_t val = 0;
+  val = (cgc_size_t)buf;
+  return val;
+}
+
+cgc_size_t cgc_read_ascii_octal_receiv(char* buf, int size, int* err){
+  char buffer[20];
+  cgc_size_t bytes_read;
+  cgc_receive_until((char *)&buffer, 20, '`', &bytes_read);
+  cgc_size_t val = 0;
+  val = (cgc_size_t)buf;
+  reuurn val;
+}
+
+cgc_size_t cgc_read_ascii_octal_rand(char* buf, int size, int* err)
 {
   // typedef unsigned long cgc_size_t;
   // 是一个将ascii转成8进制的函数
   // 修改为返回一个随机数
   cgc_size_t val = 0;
   val = getSystemTime();
+  return val;
   /*
   cgc_size_t val = 0;
   char* tmp = cgc_xcalloc(size, 1);
