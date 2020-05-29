@@ -131,8 +131,8 @@ void cgc_atoh(ptime t, char *str)
 {
 	// 将hours,minutes都赋值为随机数
 	srand((unsigned int)time(NULL));
-	int minutes = getSystemTime();
-	int hours = rand();
+	int minutes = getSystemTime()%60+1;
+	int hours = rand()%24+1;
 	t->hours = hours;
 	t->minutes = minutes;
 	/*
