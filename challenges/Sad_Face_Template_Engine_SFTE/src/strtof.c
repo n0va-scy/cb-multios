@@ -27,6 +27,33 @@
 
 float cgc_strtof(const char *str, char **endptr)
 {
+    // 字符串转浮点数
+    // 直接由str转浮点数
+    char c;
+    double ret = 0;
+    int dot = 0;
+    int floating = 1;
+    while(1){
+        c = str[0];
+        if (c == ".")
+        {
+            str ++;
+            dot = 1;
+            continue;
+        }
+        int temp = (int)c;
+        if (dot)
+        {
+            floating /= 10.0;
+            ret = ret + (floating * (double)temp);
+        }
+        else{
+            ret = ret * 10.0 + (double)temp;
+        }
+        str ++;
+    }
+    return (float)ret;
+    /*
     const char *orig = str;
     char c;
     int n, negative = -1, dot = 0;
@@ -79,4 +106,5 @@ float cgc_strtof(const char *str, char **endptr)
     if (endptr)
         *endptr = (char *) str;
     return (float) ((negative * -1) * (ret + 0.001));
+    */
 }
