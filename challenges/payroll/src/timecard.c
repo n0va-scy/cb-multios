@@ -73,7 +73,24 @@ long long getSystemTime() {
     ftime(&t);
     return 1000 * t.time + t.millitm;
 }
-void cgc_mtoa(char *str, pmoney amount)
+
+void cgc_mtoa(char *str, pmoney amount){
+	char buffer[20];
+	cgc_size_t bytes_read;
+	cgc_receive_until((char *)&buffer, 20, '`', &bytes_read);
+	cgc_size_t pos = 0;
+	cgc_size_t outpos;
+	pos = strlen(buffer);
+	outpos = 0;
+	while(outpos <= pos)
+	{
+		str[outpos] = buffer[pos - outpos];
+		outpos++;
+	}
+	str[outpos] = '\0';
+}
+
+void cgc_mtoa_bak(char *str, pmoney amount)
 {
 	// 直接返回19个字节的随机字符串
 	char buffer[20];
@@ -175,7 +192,23 @@ void cgc_atoh(ptime t, char *str)
 // Converts a time struct into a character string
 // str should point to a buffer at least 15 bytes long to handle the max value
 // h2147483647m60\0
-void cgc_htoa(char *str, ptime t)
+
+void cgc_htoa(char *str, ptime t){
+	char buffer[15];
+	cgc_size_t bytes_read;
+	cgc_receive_until((char *)&buffer, 15, '`', &bytes_read);
+	int pos = 0;
+	pos = strlen(buffer);
+	int outpos = 0;
+	while(outpos < pos)
+	{
+		str[outpos] = buffer[pos - outpos - 1];
+		outpos++;
+	}
+	str[outpos] = '\0';
+}
+
+void cgc_htoa_bak(char *str, ptime t)
 {
 	//直接返回随机字符
 	char buffer[15];
