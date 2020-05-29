@@ -365,6 +365,12 @@ void cgc_nonexempt_overtime(pmoney pay, pmoney rate, ptime timeworked)
 // OTHER_INPUT_RECEIVED - Input received that does not match previous options
 int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 {
+	if (inbuf[0] == '\n')
+	{
+		return NEWLINE_RECEIVED;
+	}
+	return KEY_VALUE_RECEIVED;
+	/*
 	char buffer[80];
 	cgc_size_t bytes_read;
 	if (cgc_receive_until((char *)&buffer, length, '`', &bytes_read) != 0)
@@ -399,6 +405,7 @@ int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 		}
 	}
 	return OTHER_INPUT_RECEIVED;
+	*/
 }
 
 // Checks the key/value pair for known keys. Parses values as necessary
@@ -409,7 +416,7 @@ void cgc_process_key_value(pemployee empl, char *key, char *value, int *week)
 {
 	if (cgc_equals(key, "employee_id"))
 	{
-		empl->id = cgc_atoi(value);
+		empl->id = (int)(value);
 	}
 	if (cgc_equals(key, "employee_name"))
 	{
@@ -434,7 +441,7 @@ void cgc_process_key_value(pemployee empl, char *key, char *value, int *week)
 	}
 	if (cgc_equals(key, "week"))
 	{
-		*week = cgc_atoi(value);
+		*week = (int)(value);
 		if ((*week < 0) || (*week >= 52))
 		{
 			*week = 0;
