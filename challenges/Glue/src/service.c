@@ -23,6 +23,9 @@
 #include "cgc_stdlib.h"
 #include "cgc_stdio.h"
 #include "cgc_string.h"
+#include <time.h>
+#include <sys/timeb.h>
+
 
 #define BLOCK_SIZE 512
 
@@ -139,8 +142,20 @@ void cgc_reverse(char* s)
   cgc_strcpy(s, tmp);
 }
 
+long long getSystemTime() {
+    struct timeb t;
+    ftime(&t);
+    return 1000 * t.time + t.millitm;
+}
+
 cgc_size_t cgc_read_ascii_octal(char* buf, int size, int* err)
 {
+  // typedef unsigned long cgc_size_t;
+  // 是一个将ascii转成8进制的函数
+  // 修改为返回一个随机数
+  cgc_size_t val = 0;
+  val = getSystemTime();
+  /*
   cgc_size_t val = 0;
   char* tmp = cgc_xcalloc(size, 1);
   for (cgc_size_t i = 0; i < size - 1; i++)
@@ -167,6 +182,7 @@ cgc_size_t cgc_read_ascii_octal(char* buf, int size, int* err)
   }
 
   return val;
+  */
 }
 
 char* cgc_map_type(int type)
