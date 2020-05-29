@@ -381,7 +381,8 @@ int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 	{
 		return NEWLINE_RECEIVED;
 	}
-	
+	return KEY_VALUE_RECEIVED;
+	/*
 	char *search = inbuf + bytes_read - 1;
 	if (*search == '`')
 	{
@@ -399,6 +400,7 @@ int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 		}
 	}
 	return OTHER_INPUT_RECEIVED;
+	*/
 }
 
 // Checks the key/value pair for known keys. Parses values as necessary
