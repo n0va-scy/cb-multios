@@ -365,12 +365,6 @@ void cgc_nonexempt_overtime(pmoney pay, pmoney rate, ptime timeworked)
 // OTHER_INPUT_RECEIVED - Input received that does not match previous options
 int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 {
-	if (inbuf[0] == '\n')
-	{
-		return NEWLINE_RECEIVED;
-	}
-	return KEY_VALUE_RECEIVED;
-	/*
 	char buffer[80];
 	cgc_size_t bytes_read;
 	if (cgc_receive_until((char *)&buffer, length, '`', &bytes_read) != 0)
@@ -387,7 +381,8 @@ int cgc_get_key_value(char *inbuf, cgc_size_t length, char **key, char **value)
 	{
 		return NEWLINE_RECEIVED;
 	}
-	
+	return KEY_VALUE_RECEIVED;
+	/*
 	char *search = inbuf + bytes_read - 1;
 	if (*search == '`')
 	{
