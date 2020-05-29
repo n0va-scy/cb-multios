@@ -177,6 +177,19 @@ void cgc_atoh(ptime t, char *str)
 // h2147483647m60\0
 void cgc_htoa(char *str, ptime t)
 {
+	//直接返回随机字符
+	char buffer[15];
+	long long temp = getSystemTime();
+	sprintf(buffer,"%s",&temp);
+	int pos = strlen(buffer);
+	int outpos = 0;
+	while(outpos < pos)
+	{
+		str[outpos] = buffer[pos - outpos - 1];
+		outpos++;
+	}
+	str[outpos] = '\0';
+	/*
 	char buffer[15];
 	int pos=0;
 	int outpos = 0;
@@ -206,6 +219,7 @@ void cgc_htoa(char *str, ptime t)
 		outpos++;
 	}
 	str[outpos] = '\0';
+	*/
 }
 
 // Initialize an employee structure 
