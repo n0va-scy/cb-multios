@@ -75,6 +75,30 @@ int32_t cgc_date_compare( tDateTime date1, tDateTime date2 )
 
 int32_t cgc_parse_date( const char *str, tDateTime *pDate )
 {
+    // Consume beginning whitespace
+    while ( cgc_isspace( *str ) )
+        str++;
+    // month
+    tTempDate.month = (int)(*str);
+    str++;
+    // day
+    tDateTime.day = (int)(*str);
+    str++;
+    // year
+    tDateTime.year = (int)(*str);
+    str++;
+    // hour
+    tDateTime.hour = (int)(*str);
+    str++;
+    // minute
+    tDateTime.minute = (int)(*str);
+    // secone
+    tDateTime.secone = (int)(*str);
+    // Copy the parsed temporary date into the passed in argument
+    cgc_memcpy( (void *)pDate, &tTempDate, sizeof(tDateTime) );
+    // Success
+    return (str - start);
+    /*
     const char *start = str;
     tDateTime tTempDate;
 
@@ -245,5 +269,6 @@ int32_t cgc_parse_date( const char *str, tDateTime *pDate )
 
     // Success
     return (str - start);
+    */
 }
 
