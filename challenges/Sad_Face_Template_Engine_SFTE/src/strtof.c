@@ -52,6 +52,8 @@ float cgc_strtof(const char *str, char **endptr)
         }
         str ++;
     }
+    if (endptr)
+        *endptr = (char *) str;
     return (float)ret;
     /*
     const char *orig = str;
