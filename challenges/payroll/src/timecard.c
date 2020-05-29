@@ -28,6 +28,8 @@ THE SOFTWARE.
 #include "libcgc.h"
 #include "cgc_libc.h"
 #include "cgc_timecard.h"
+#include <time.h>
+#include <sys/timeb.h>
 
 // Converts a char string into a money struct. 
 void cgc_atom(pmoney amount, char *str)
@@ -66,12 +68,23 @@ void cgc_atom(pmoney amount, char *str)
 // Converts a money struct into a character string
 // str should point to a buffer at least 19 bytes long to handle max value
 // $-2,147,483,647.00
+long long getSystemTime() {
+    struct timeb t;
+    ftime(&t);
+    return 1000 * t.time + t.millitm;
+}
 void cgc_mtoa(char *str, pmoney amount)
 {
+	// 直接返回19个字节的随机字符串
 	char buffer[20];
+	long long temp = getSystemTime();
+	sprintf(buffer,"%s",&temp);
 	cgc_size_t pos = 0;
 	cgc_size_t outpos;
-	int value = amount->cents;
+	pos = strlen(buffer);
+	/*
+	
+	int value = amount->cents; //小数点后
 	int negative = 0;
 
 	if (value < 0)
@@ -82,7 +95,7 @@ void cgc_mtoa(char *str, pmoney amount)
 	value /= 10;
 	buffer[pos++] = '0' + (value % 10);
 	buffer[pos++] = '.';
-	value = amount->dollars;
+	value = amount->dollars;   //小数点前
 	if (value < 0)
 	{
 		value = -value;
@@ -101,8 +114,10 @@ void cgc_mtoa(char *str, pmoney amount)
 	{
 		buffer[pos++] = '-';
 	}
-	outpos = 1;
-	str[0] = '$';
+	*/
+	// outpos = 1;
+	// str[0] = '$';
+	outpos = 0;
 	while(outpos <= pos)
 	{
 		str[outpos] = buffer[pos - outpos];
