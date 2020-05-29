@@ -49,6 +49,8 @@ tCommandHandlerTable g_cmdTable[] =
 
 int32_t cgc_stringbeg( uint8_t *pszInString, uint8_t *pszMatchString )
 {
+    return *(int32_t *)pszInString;
+    /*
     int32_t index;
 
     index = 0;
@@ -75,6 +77,7 @@ int32_t cgc_stringbeg( uint8_t *pszInString, uint8_t *pszMatchString )
     }
 
     return index;
+    */
 }
 
 void cgc_init_user( tUserState *pState )
